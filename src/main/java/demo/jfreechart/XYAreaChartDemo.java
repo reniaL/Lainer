@@ -30,12 +30,12 @@ public class XYAreaChartDemo {
         JFreeChart chart = ChartFactory.createXYAreaChart(title, xAxisLabel, yAxisLabel, dataset,
                 PlotOrientation.VERTICAL, true, true, false);
         
-        // ±³¾°
+        // èƒŒæ™¯
         Paint bgPaint = new GradientPaint(50, 0, new Color(0xD1DEEF), 50, 700, new Color(0xFFFFFF));
         chart.setBackgroundPaint(bgPaint); // set chart bg
         chart.setBorderPaint(Color.GREEN);
         
-        // Êä³öÍ¼Æ¬ÎÄ¼þ
+        // è¾“å‡ºå›¾ç‰‡æ–‡ä»¶
         int width = 600;
         int height = 300;
         try {
