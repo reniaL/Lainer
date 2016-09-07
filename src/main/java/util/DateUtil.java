@@ -15,6 +15,29 @@ public class DateUtil {
     public static final String FORMAT_DATETIME_SHORT = "yyyyMMddHHmmss";
     
     /**
+     * 将日期格式化为字符串
+     * @return 出错时返回 null
+     */
+    public static String formatDate(Date date, String pattern) {
+        String result;
+        try {
+            DateFormat df = new SimpleDateFormat(pattern);
+            result = df.format(date);
+        } catch (Exception e) {
+            result = null;
+        }
+        return result;
+    }
+    
+    /**
+     * 将日期格式化为字符串，格式为 yyyy-MM-dd
+     * @return 出错时返回 null
+     */
+    public static String formatDateNormal(Date date) {
+        return formatDate(date, FORMAT_DATE_NORMAL);
+    }
+    
+    /**
      * 将字符串转换为日期
      * 
      * @param str 进行转换的字符串
