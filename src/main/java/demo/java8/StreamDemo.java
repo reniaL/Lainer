@@ -1,6 +1,7 @@
 package demo.java8;
 
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -41,11 +42,21 @@ public class StreamDemo {
     }
     
     public static void testMap() {
-        List<Book> books = MyUtil.toList(new Book("a", "James", 20), new Book("b", "Mars", 50));
+        List<Book> books = MyUtil.toList(new Book("c", "Zach", 88), new Book("a", "James", 20), new Book("b", "Mars", 50));
+        
+        // 无法保证Map的实现类
         Map<String, Book> map = books.stream().collect(Collectors.toMap(Book::getTitle, Function.identity()));
         for (Entry<String, Book> entry : map.entrySet()) {
-			System.out.println(entry.getKey() + ": " + entry.getValue().getAuthor());
-		}
+            System.out.println(entry.getKey() + ": " + entry.getValue().getAuthor());
+        }
+
+        // 使用具体的Map实现类
+        System.out.println("\nsorted:");
+        map = books.stream().collect(
+                Collectors.toMap(Book::getTitle, Function.identity(), (v1, v2) -> v1, LinkedHashMap::new));
+        for (Entry<String, Book> entry : map.entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue().getAuthor());
+        }
     }
     
     public static void arrayToStream() {
