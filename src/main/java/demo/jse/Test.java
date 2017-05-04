@@ -36,6 +36,7 @@ import java.util.Set;
 import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
@@ -53,6 +54,7 @@ import net.sf.json.JsonConfig;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.codec.binary.Hex;
+import org.apache.commons.collections.ListUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringEscapeUtils;
@@ -71,11 +73,59 @@ import demo.spring.MyFacade;
 import domain.House;
 import domain.User;
 
-@SuppressWarnings("restriction")
 public class Test {
     
     public static void main(String args[]) {
-        dateParseTest();
+        testStacktrace();
+    }
+    
+    public static void testStacktrace() {
+        System.out.println("stacks:");
+        System.out.println(StringUtils.join(Arrays.stream(Thread.currentThread().getStackTrace()).map(String::valueOf).collect(Collectors.toList()), "\n"));
+//        Arrays.stream(Thread.currentThread().getStackTrace()).map(String::valueOf).forEach(System.out::println);
+    }
+    
+    public static void testInt() {
+        int a = 2;
+        Integer b = 2;
+        Integer c = new Integer(2);
+        Integer d = new Integer(2);
+        
+        System.out.println(a == b);
+        System.out.println(a == c);
+        System.out.println(b == c);
+        System.out.println(c == d);
+        
+        System.out.println(b.equals(a));
+        System.out.println(c.equals(a));
+        System.out.println(c.equals(b));
+        System.out.println(c.equals(d));
+        
+        System.out.println(Arrays.toString(Thread.currentThread().getStackTrace()));
+    }
+    
+    @SuppressWarnings("unchecked")
+    public static void diff() {
+        String path1 = "D:/Documents/Downloads/a.csv";
+        String path2 = "D:/Documents/Downloads/b.csv";
+        try {
+            String content1 = FileUtils.readFileToString(new File(path1), "UTF-8");
+            String content2 = FileUtils.readFileToString(new File(path2), "UTF-8");
+            List<String> list1 = MyUtil.toList(content1.split("\n"));
+            List<String> list2 = MyUtil.toList(content2.split("\n"));
+            System.out.println(list1.size());
+            System.out.println(list2.size());
+            
+            List<String> sub1 = ListUtils.subtract(list1, list2);
+            System.out.println(sub1);
+            System.out.println(sub1.size());
+            
+            // List<String> sub2 = ListUtils.subtract(list2, list1);
+            // System.out.println(sub2);
+            // System.out.println(sub2.size());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     
     public static int[] bubbleSort(int[] nums) {
