@@ -6,7 +6,34 @@ var dateutil = {
      * 获取当天的日期，格式例如 2014-01-01
      */
     today : function() {
-        var d = new Date();
+        return dateutil.formatDateNormal(new Date());
+    },
+    
+    /**
+     * 获取指定日期所在月份的第一天
+     * @params date 如果为空则默认为今天
+     */
+    getFirstDayOfMonth: function(date) {
+        var result = new Date(date || dateutil.today());
+        result.setDate(1);
+        return result;
+    },
+    
+    /**
+     * 为指定日期添加指定天数
+     * @params count: 天数，可以为负数
+     * @params date: 指定日期，不传入该值时默认为今天
+     */
+    addDays: function(count, date) {
+        var result = new Date(date || dateutil.today());
+        result.setDate(result.getDate() + count);
+        return result;
+    },
+    
+    /**
+     * 格式化日期，例如 2014-01-01
+     */
+    formatDateNormal: function(d) {
         var month = d.getMonth() < 9 ? "0" + (d.getMonth() + 1) : d.getMonth() + 1;
         var date = d.getDate() < 10 ? "0" + d.getDate() : d.getDate();
         return d.getFullYear() + "-" + month + "-" + date;
@@ -20,7 +47,7 @@ var dateutil = {
      * @return 校验通过则返回true，否则返回false
      */
     validateTimeRange : function(maxDays, startTime, endTime) {
-        return (Date.parse(endTime) - Date.parse(startTime)) <= dateutil.MILLISECONDS_ONE_DAY * (maxDays - 1)
+        return ((new Date(endTime)).getTime() - (new Date(startTime)).getTime()) <= dateutil.MILLISECONDS_ONE_DAY * (maxDays - 1)
     },
 
     /**
