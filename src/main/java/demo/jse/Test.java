@@ -81,8 +81,9 @@ public class Test {
     
     public static void testStacktrace() {
         System.out.println("stacks:");
-        System.out.println(StringUtils.join(Arrays.stream(Thread.currentThread().getStackTrace()).map(String::valueOf).collect(Collectors.toList()), "\n"));
-//        Arrays.stream(Thread.currentThread().getStackTrace()).map(String::valueOf).forEach(System.out::println);
+        System.out.println(StringUtils.join(
+                Arrays.stream(Thread.currentThread().getStackTrace()).map(x -> "\t" + x.toString())
+                        .collect(Collectors.toList()), "\n"));
     }
     
     public static void testInt() {

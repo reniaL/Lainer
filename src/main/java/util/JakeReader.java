@@ -1,11 +1,11 @@
 package util;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class JakeReader implements AutoCloseable {
-
-    private static final Logger log = LoggerFactory.getLogger(JakeReader.class);
+    
+    private static final Log log = LogFactory.getLog(JakeReader.class);
 
     private String name;
     private boolean readException;
