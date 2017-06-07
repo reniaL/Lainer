@@ -92,17 +92,21 @@ public class Test {
         Integer c = new Integer(2);
         Integer d = new Integer(2);
         
-        System.out.println(a == b);
-        System.out.println(a == c);
-        System.out.println(b == c);
-        System.out.println(c == d);
+        System.out.println(a == b); // true
+        System.out.println(a == c); // true
+        System.out.println(b == c); // false
+        System.out.println(c == d); // false
         
+        // all true
         System.out.println(b.equals(a));
         System.out.println(c.equals(a));
         System.out.println(c.equals(b));
         System.out.println(c.equals(d));
-        
-        System.out.println(Arrays.toString(Thread.currentThread().getStackTrace()));
+
+        // true when betwen -128 and 127, otherwise false
+        Integer x = 128;
+        Integer y = 128;
+        System.out.println(x == y);
     }
     
     @SuppressWarnings("unchecked")
