@@ -1,5 +1,8 @@
 package domain;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
+
+@JsonFilter("customerFilter")
 public class Customer {
     
     private int id;
