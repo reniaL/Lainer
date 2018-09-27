@@ -1,7 +1,7 @@
 package demo.algorithm;
 
 
-
+import java.util.Arrays;
 
 public class QuickSortDemo {
     
@@ -24,6 +24,8 @@ public class QuickSortDemo {
     }
     
     private static int partition(int[] arr, int begin, int end) {
+        // 以第一个元素为基准数（支点）
+        // pivot 值是基准数的索引，随着下面的循环、判断，不断后移到最终正确的位置
         int pivot = begin;
         for (int i = begin+1; i <= end; i++) {
             if (arr[i] <= arr[begin]) {
@@ -31,7 +33,10 @@ public class QuickSortDemo {
                 swap(arr, i, pivot);
             }
         }
+
+        // 最后做一次交换，因为基准数一直在开头没动过，要交换到正确的位置
         swap(arr, begin, pivot);
+        System.out.println(Arrays.toString(arr));
         return pivot;
     }
 

@@ -2,7 +2,7 @@ package domain;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
 
-@JsonFilter("customerFilter")
+//@JsonFilter("customerFilter")
 public class Customer {
     
     private int id;
@@ -40,6 +40,9 @@ public class Customer {
         public Customer build() {
             return new Customer(this);
         }
+    }
+
+    private Customer() {
     }
     
     private Customer(CustomerBuilder builder) {

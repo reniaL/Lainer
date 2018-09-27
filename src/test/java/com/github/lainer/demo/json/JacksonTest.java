@@ -8,7 +8,9 @@ import java.util.Map;
 import org.junit.Test;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
@@ -25,6 +27,11 @@ import domain.Customer;
 public class JacksonTest {
     
     private ObjectMapper objectMapper = new ObjectMapper();
+
+    public JacksonTest() {
+        // 从 String 转为 Object 时，如果有多余的字段，需要加该配置，否则会出错
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    }
     
     @Test
     @SuppressWarnings("unchecked")
@@ -55,19 +62,36 @@ public class JacksonTest {
         System.out.println(root.get("name"));
         System.out.println(root.path("list"));
     }
+
+    @Test
+    public void testStringToObject() throws IOException {
+        String content = "{\"id\": 123, \"name\": \"haha\", \"gender\": \"male\", \"age1\": 23}";
+        Customer customer = objectMapper.readValue(content, Customer.class);
+        System.out.println(customer.toString());
+    }
     
     @Test
     public void testStringToJsonNode() throws IOException {
         Customer customer = new Customer.CustomerBuilder().id(1).name("Jack").age(20).gender("male").build();
         String content = objectMapper.writeValueAsString(customer);
         System.out.println(content);
-    
+
         JsonNode jsonNode = objectMapper.readTree(content);
-        System.out.println(jsonNode);
+        System.out.println(jsonNode); // 普通输出
+        System.out.println(objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonNode)); // pretty
+    }
+
+    @Test
+    public void testObjectToJsonString() throws JsonProcessingException {
+        ObjectMapper mapper = objectMapper.copy();
+        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL); // 忽略 null 字段
+        Customer customer = new Customer.CustomerBuilder().id(1).age(20).gender("male").build();
+        System.out.println(mapper.writeValueAsString(customer));
     }
     
     @Test
     public void testFilter() throws JsonProcessingException {
+        // 必须配合 Customer 类中添加 @JsonFilter("customerFilter") 使用
         SimpleFilterProvider filterProvider = new SimpleFilterProvider();
         filterProvider.addFilter("customerFilter", SimpleBeanPropertyFilter.serializeAllExcept("name", "age"));
         ObjectWriter writer = objectMapper.writer(filterProvider);
