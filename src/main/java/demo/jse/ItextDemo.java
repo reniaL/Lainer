@@ -14,9 +14,9 @@ import com.lowagie.text.rtf.style.RtfParagraphStyle;
 
 public class ItextDemo {
     
-    private static final String PATH = "/temp/test2.doc";
+    private static final String PATH = "/data/temp/itext.doc";
     
-    private static final String PATH_IMAGE = "/home/file/lainer/temp/img.png";
+    private static final String PATH_IMAGE = "/data/temp/img1.jpg";
     
     public static void main(String[] args) {
         write();
@@ -32,13 +32,13 @@ public class ItextDemo {
             RtfParagraphStyle styleHeading1 = RtfParagraphStyle.STYLE_HEADING_1;
             styleHeading1.setAlignment(Element.ALIGN_CENTER);
             RtfParagraphStyle styleHeading2 = RtfParagraphStyle.STYLE_HEADING_2;
-            
+
             Paragraph paraTitle = new Paragraph("Network", styleHeading1);
             doc.add(paraTitle);
             doc.add(new Paragraph("Bird Man", styleHeading2));
             doc.add(new Paragraph("And content here~\n忘了"));
             doc.newPage();
-            
+
             doc.add(new Paragraph("Big big bid~", styleHeading2));
             Image img = Image.getInstance(PATH_IMAGE);
             img.setAlignment(Image.MIDDLE);
@@ -48,7 +48,7 @@ public class ItextDemo {
             doc.add(new Paragraph("茶包～"));
             doc.add((new Chunk()).setNewPage());
             doc.add(paraTitle);
-            
+
             doc.close();
         } catch (Exception e) {
             e.printStackTrace();
