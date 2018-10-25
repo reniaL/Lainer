@@ -2,6 +2,7 @@ package demo.algorithm;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class FindSubArraySumDemo {
     
@@ -30,11 +31,7 @@ public class FindSubArraySumDemo {
     
     // 深复制一个嵌套列表
     private List<List<Integer>> copy(List<List<Integer>> list) {
-        List<List<Integer>> result = new ArrayList<>();
-        for (List<Integer> l : list) {
-            result.add(new ArrayList<>(l));
-        }
-        return result;
+        return list.stream().map(x -> new ArrayList<>(x)).collect(Collectors.toList());
     }
     
     

@@ -1,4 +1,4 @@
-//========dom readyº¯Êı========
+//========dom readyå‡½æ•°========
 
 function ready(fn) {
   if (/(?!.*?compatible|.*?webkit)^mozilla|opera/i.test(navigator.userAgent)) {
@@ -9,10 +9,10 @@ function ready(fn) {
 }
 
 /**
- * µ¼ÈëjsÈÃÆä×Ô¶¯Ö´ĞĞ
- *@param url Òªµ¼ÈëµÄscriptµØÖ·
- *@param callback (¿ÉÑ¡) ÔØÈëscriptÍê³Éºó´¥·¢µÄ»Øµ÷
- *@param callbackflag (¿ÉÑ¡) Éè¶¨callbackµÄ²ÎÊı
+ * å¯¼å…¥jsè®©å…¶è‡ªåŠ¨æ‰§è¡Œ
+ *@param url è¦å¯¼å…¥çš„scriptåœ°å€
+ *@param callback (å¯é€‰) è½½å…¥scriptå®Œæˆåè§¦å‘çš„å›è°ƒ
+ *@param callbackflag (å¯é€‰) è®¾å®šcallbackçš„å‚æ•°
  */
 function importJs(url, callback, callbackflag){
   var head = document.getElementsByTagName("head")[0] || document.documentElement;
@@ -23,27 +23,27 @@ function importJs(url, callback, callbackflag){
   script.onload = script.onreadystatechange = function() {
     if (!done && (!this.readyState || this.readyState == "loaded" || this.readyState == "complete")) {
       done = true;
-      //ÏÂÔØÍê³Éºó´¥·¢»Øµ÷º¯Êı
+      //ä¸‹è½½å®Œæˆåè§¦å‘å›è°ƒå‡½æ•°
       if(typeof(callback) == "function"){
         callback(callbackflag);
       }
-      // ¼ÓÔØÍê³Éºó£¬¿ÉÉ¾³ıscript±êÇ©£¬µ«ºÃÏñ»áÓĞÎÊÌâ
+      // åŠ è½½å®Œæˆåï¼Œå¯åˆ é™¤scriptæ ‡ç­¾ï¼Œä½†å¥½åƒä¼šæœ‰é—®é¢˜
 //      head.removeChild(this);
     }
   };
-  //Ê¹ÓÃinsertBefore¶ø²»ÊÇappendChildÈÆ¹ıIEµÄbug
+  //ä½¿ç”¨insertBeforeè€Œä¸æ˜¯appendChildç»•è¿‡IEçš„bug
   head.insertBefore(script, head.firstChild);
 }
 
 
 /**
- * ·µ»ØnÌìÇ°µÄÈÕÆÚ£¬¸ñÊ½Îª"yyyyÄêMMÔÂddÈÕ"
- * @param n Èç¹ûnÎª0£¬±íÊ¾µ±Ìì£»Èç¹ûnÎª¸ºÊı£¬±íÊ¾Î´À´¡£
- * @return Èç¹ûn²»ÊÇÊı×Ö£¬·µ»Øµ±Ìì¡£
+ * è¿”å›nå¤©å‰çš„æ—¥æœŸï¼Œæ ¼å¼ä¸º"yyyyå¹´MMæœˆddæ—¥"
+ * @param n å¦‚æœnä¸º0ï¼Œè¡¨ç¤ºå½“å¤©ï¼›å¦‚æœnä¸ºè´Ÿæ•°ï¼Œè¡¨ç¤ºæœªæ¥ã€‚
+ * @return å¦‚æœnä¸æ˜¯æ•°å­—ï¼Œè¿”å›å½“å¤©ã€‚
  */
 function getDate(n) {
   n = (n && !isNaN(parseInt(n))) ? parseInt(n) : 0;
   var d = new Date();
   d.setDate(d.getDate() - n);
-  return d.getFullYear() + "Äê" + (d.getMonth() + 1) + "ÔÂ" + d.getDate() + "ÈÕ";
+  return d.getFullYear() + "å¹´" + (d.getMonth() + 1) + "æœˆ" + d.getDate() + "æ—¥";
 }
