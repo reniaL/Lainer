@@ -78,6 +78,9 @@ public class JacksonTest {
 
         JsonNode jsonNode = objectMapper.readTree(content);
         System.out.println(jsonNode); // 普通输出
+        System.out.println(jsonNode.get("name").asText());
+        System.out.println(jsonNode.get("age").asText());
+        System.out.println(jsonNode.get("haha").asText());
         System.out.println(objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonNode)); // pretty
     }
 
